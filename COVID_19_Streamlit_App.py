@@ -12,12 +12,14 @@ import pickle
 from PIL import Image
 import matplotlib.pyplot as plt
 
+
 # Set Display Options
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 np.set_printoptions(suppress=True)
+
 
 # Define Variables for use later on in App
 io_path = r"C:\Users\Eric\Desktop\Eric All Files\Python Projects\COVID-19 Projects"
@@ -112,17 +114,33 @@ def prepare_prediction_data(symptom_time=4, lab_case=1, med_cond=0, race='White'
 
 # Start of the Main App. Write the Header and give some background info
 st.markdown("# COVID-19 Survival Prediction App",unsafe_allow_html=True)
-st.markdown("![Alt Text](https://southkingstownri.com/ImageRepository/Document?documentID=3809)")
-st.markdown("This web application uses machine learning to predict if a person diagnosed with COVID-19 will survive having the disease. It uses the COVID-19 Case Surveillance Public Use Data which is available from the CDC. That data is updated monthly, and it contains anonymized patient data from people who have contracted COVID-19. The dataset includes information about the patient, including demographic information like age, race and gender, as well as information about if the patient has an underlying health condition, if they were admitted to the hospital, and if they ultimately passed away from COVID-19. The full data set can be found __[here](https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf)__.", unsafe_allow_html=True)
-st.markdown("This web app uses the data that the user provides as inputs to an XGBoost Classifier, which then returns a probability of death, and a predicted outcome status, namely Survives, Unsure, and Does Not Survive. These three outcome statuses are based on the probability of death, and are just a short hand interpretation of the probability that the model returns.") 
-st.markdown("**It should be noted that the results of this model should in no way, shape, or from be construed as medical advice. Any predictions made by this model are purely theoretical, and should not influence any decision regarding your physical health. If you have been in contact with someone who has COVID-19, or have contracted COVID-19 yourself, contact your local health provider for treatment. Please wear a mask, wash your hands, social distance, avoid large gatherings, and get vaccinated when it is your turn.**")
+st.image("https://southkingstownri.com/ImageRepository/Document?documentID=3809", use_column_width=True)
+st.markdown("""This web application uses machine learning to predict if a person diagnosed with COVID-19 will survive having the disease. It uses the COVID-19 Case Surveillance Public Use Data which is available from the CDC. That data is updated monthly, and it contains anonymized patient data from people who have contracted COVID-19. The dataset includes information about the patient, including demographic information like age, race and gender, as well as information about if the patient has an underlying health condition, if they were admitted to the hospital, and if they ultimately passed away from COVID-19. The full data set can be found __[here](https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf)__.
+
+This web app uses the data that the user provides as inputs to an XGBoost Classifier, which then returns a probability of death, and a predicted outcome status, namely Survives, Unsure, and Does Not Survive. These three outcome statuses are based on the probability of death, and are just a short hand interpretation of the probability that the model returns.
+
+**It should be noted that the results of this model should in no way, shape, or from be construed as medical advice. Any predictions made by this model are purely theoretical, and should not influence any decision regarding your physical health. If you have been in contact with someone who has COVID-19, or have contracted COVID-19 yourself, contact your local health provider for treatment. Please wear a mask, wash your hands, social distance, avoid large gatherings, and get vaccinated when it is your turn.**
+ """, unsafe_allow_html=True)
 
 # Provide the User Instructions about how to use the app
-st.markdown("## Instructions:")
-st.markdown("Use the sidebar on the left-hand side of the screen to adjust the variables for a patient to predict their probability of survival if they contract COVID-19.")
+st.markdown("""## Instructions:
+
+Use the sidebar by clicking on the arrow in the top left-hand corner of the screen to adjust the variables for a patient to predict their probability of survival if they contract COVID-19.
+
+The variables that you can adjust are listed below:
+
+1. Hospitalization Indicator
+2. Intensive Care Indicator
+3. Lab Confirmed Case Indicator
+4. Underlying Medical Condition Indicator
+5. Gender
+6. Race
+7. Age
+8. Symptom Development Time in Days
+""")
 
 # Create a Sidebar where users can input data
-st.sidebar.markdown("### Adjust the Variables for the Patient")
+st.sidebar.markdown("""### Adjust the Patient Conditions""")
 
 hosp_yn = st.sidebar.checkbox(label='Hospital Y/N')
 
@@ -166,17 +184,27 @@ outcome_df['Probability of Death'] = xgb_clf.predict_proba(test_val)[0][1]
 outcome_df['Predicted Outcome'] = outcome_df['Probability of Death'].apply(human_outcome)
 
 st.dataframe(outcome_df)
-st.markdown("## Understanding the Results:")
-st.markdown("### Impact of the Selected Varaibles on the Predicted Patient Outcome")
-st.markdown("This plot shows the contributions of each individual variable in the model in terms of how much it increased or decreased the probability of death. Variables in blue mean that that variable decreased the probability of death, and variables in red means that that variable increased the probability of death.")
+
+st.markdown("""## Understanding the Results:
+
+### Impact of the Selected Varaibles on the Predicted Patient Outcome
+
+This plot shows the contributions of each individual variable in the model in terms of how much it increased or decreased the probability of death of this specific individual with the symptom characteristics that you selected. Variables in blue mean that that variable decreased the probability of death, and variables in red mean that that variable increased the probability of death.
+ """, unsafe_allow_html=True)
+
 explainer = shap.TreeExplainer(xgb_clf)
 shap_values = explainer.shap_values(test_val)
 
 # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
 st_shap(shap.force_plot(explainer.expected_value, shap_values, test_val,link='logit'),150)
 
-st.markdown("### Shapley Values Summary Plot")
-st.markdown("Below is an Image of the Shapley Values over all variables when this model was fit on the training data. This plot shows what the model thinks the most important variables are when making predictions. The color bar on the right hand side of the chart corresponds to the value of the individual variable on the y axis. Red means high, and blue means low.") 
-st.markdown("For example, we can see that for high values of Hosp_yn, meaning someone was hospitalized, the model thinks that is very important in determining if someone will live or die, and being admitted to the hospital increases the probability of death. Conversely, the model thinks if someone is between 0 and 9 years old, that they are much less likey to die from COVID-19.")
-st.markdown("<b><center>Shapley Value Summary Plot</center></b>", unsafe_allow_html=True)
+st.markdown("""### Shapley Values Summary Plot 
+
+Below is an Image of the Shapley Values over all variables when this model was fit on the training data. This plot shows what the model thinks the most important variables are when making predictions. The color bar on the right hand side of the chart corresponds to the value of the individual variable on the y axis. Red means high, and blue means low.
+
+For example, we can see that for high values of Hosp_yn, meaning someone was hospitalized, the model thinks that is very important in determining if someone will live or die, and being admitted to the hospital increases the probability of death. Conversely, the model thinks if someone is between 0 and 9 years old, that they are much less likey to die from COVID-19.
+
+<b><center>Shapley Value Summary Plot</center></b>
+""", unsafe_allow_html=True)
+
 st.image(Shap_Value_Plot)
