@@ -1,2 +1,2 @@
 # Streamlit-COVID-19-App
-COVID-19 Survival Prediction ML App based on CDC Data
+This is the repository for the code and related files/images that are used to support the COVID-19 Survival Prediction ML App that I built using Streamlit.
