@@ -20,14 +20,13 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 np.set_printoptions(suppress=True)
 
-
 # Define Variables for use later on in App
-io_path = r"C:\Users\Eric\Desktop\Eric All Files\Python Projects\COVID-19 Projects"
-
-Shap_Value_Plot = Image.open(io_path+r"\Shapley Values for XGBoost Covid Model.png")
+#io_path = r"C:\Users\Eric\Desktop\Eric All Files\Python Projects\COVID-19 Projects"
 
 # Load the XGBoost Classifier
-xgb_clf = pickle.load(open(io_path+r"\xgb_clf.pkl", "rb"))
+xgb_clf = pickle.load(open("xgb_clf.pkl", "rb"))
+
+#xgb_clf = pickle.load(open(io_path+r"\xgb_clf.pkl", "rb"))
 
 # Defining a Function to show shaply plots in Streamlit
 def st_shap(plot, height=None):
@@ -207,4 +206,4 @@ For example, we can see that for high values of Hosp_yn, meaning someone was hos
 <b><center>Shapley Value Summary Plot</center></b>
 """, unsafe_allow_html=True)
 
-st.image(Shap_Value_Plot)
+st.image('https://raw.githubusercontent.com/ericvan1325/Streamlit-COVID-19-App/main/Shapley_Values_From_Model_JPEG.jpg')
