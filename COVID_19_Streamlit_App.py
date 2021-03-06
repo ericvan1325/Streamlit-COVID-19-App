@@ -136,14 +136,17 @@ The variables that you can adjust are listed below:
 6. Race
 7. Age
 8. Symptom Development Time in Days
-""")
+""") 
 
 # Create a Sidebar where users can input data
 st.sidebar.markdown("""### Adjust the Patient Conditions""")
 
 hosp_yn = st.sidebar.checkbox(label='Hospital Y/N')
 
-icu_yn = st.sidebar.checkbox(label='Intensive Care Y/N')
+if hosp_yn:
+    icu_yn = st.sidebar.checkbox(label='Intensive Care Y/N')
+else:
+    icu_yn = 0
 
 lab_case = st.sidebar.checkbox(label='Lab Confirmed COVID Case Y/N')
 
