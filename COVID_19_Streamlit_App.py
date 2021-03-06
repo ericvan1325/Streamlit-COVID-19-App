@@ -204,7 +204,7 @@ st.markdown("""### Shapley Values Summary Plot
 
 Below is an Image of the Shapley Values over all variables when this model was fit on the training data. This plot shows what the model thinks the most important variables are when making predictions. The color bar on the right hand side of the chart corresponds to the value of the individual variable on the y axis. Red means high, and blue means low.
 
-For example, we can see that for high values of Hosp_yn, meaning someone was hospitalized, the model thinks that is very important in determining if someone will live or die, and being admitted to the hospital increases the probability of death. Conversely, the model thinks if someone is between 0 and 9 years old, that they are much less likey to die from COVID-19.
+For example, we can see that for high values of Hosp_yn, where high values of Hosp_yn mean someone was hospitalized and low values mean someone was not hospitalized, because the varible is binary, the model thinks that is very important in determining if someone will live or die, and being admitted to the hospital substantially increases the probability of death. Conversely, the model thinks if someone is between 0 and 9 years old (high values for that variable being 1 since it is binary), that they are much less likey to die from COVID-19.
 
 <b><center>Shapley Value Summary Plot</center></b>
 """, unsafe_allow_html=True)
