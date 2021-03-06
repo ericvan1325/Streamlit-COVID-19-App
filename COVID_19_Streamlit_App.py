@@ -185,6 +185,8 @@ st.markdown("""## Understanding the Results:
 
 ### Impact of the Selected Varaibles on the Predicted Patient Outcome
 
+The next two plots use the Python library called SHAP. SHAP is based on Shapley values which were derrived by American Mathematician Lloyd Shapley in 1951 during his research on Game Theory. To learn more about Shapley Values, click __[here](https://en.wikipedia.org/wiki/Shapley_value)__. To learn more about the SHAP Python library, click __[here](https://github.com/slundberg/shap)__.
+
 This plot shows the contributions of each individual variable in the model in terms of how much it increased or decreased the probability of death of this specific individual with the symptom characteristics that you selected. Variables in blue mean that that variable decreased the probability of death, and variables in red mean that that variable increased the probability of death.
  """, unsafe_allow_html=True)
 
@@ -196,7 +198,7 @@ st_shap(shap.force_plot(explainer.expected_value, shap_values, test_val,link='lo
 
 st.markdown("""### Shapley Values Summary Plot 
 
-Below is an Image of the Shapley Values over all variables when this model was fit on the training data. This plot shows what the model thinks the most important variables are when making predictions. The color bar on the right hand side of the chart corresponds to the value of the individual variable on the y axis. Red means high, and blue means low.
+Below is a plot of the Shapley Values over all variables when this model was fit on the training data. This plot shows what the model thinks the most important variables are when making predictions. The color bar on the right hand side of the chart corresponds to the value of the individual variable on the y axis. Red means high, and blue means low.
 
 For example, we can see that for high values of Hosp_yn, where high values of Hosp_yn mean someone was hospitalized and low values mean someone was not hospitalized, because the varible is binary, the model thinks that is very important in determining if someone will live or die, and being admitted to the hospital substantially increases the probability of death. 
 
