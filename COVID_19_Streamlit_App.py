@@ -184,7 +184,7 @@ st.dataframe(outcome_df)
 st.markdown("""## Understanding the Results:
 
 The next two plots use the Python library called SHAP. SHAP is based on Shapley values which were derrived by American Mathematician Lloyd Shapley in 1951 during his research on Game Theory. To learn more about Shapley Values, click __[here](https://en.wikipedia.org/wiki/Shapley_value)__. To learn more about the SHAP Python library, click __[here](https://github.com/slundberg/shap)__."""
-, allow_unsafe_html=True)
+, unsafe_allow_html=True)
 
 
 st.markdown("""
