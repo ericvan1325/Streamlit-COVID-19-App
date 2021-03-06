@@ -183,7 +183,7 @@ st.dataframe(outcome_df)
 
 st.markdown("""## Understanding the Results:
 
-The next two plots use the Python library called SHAP. SHAP is based on Shapley values which were derrived by American Mathematician Lloyd Shapley in 1951 during his research on Game Theory. To learn more about Shapley Values, click __[here](https://en.wikipedia.org/wiki/Shapley_value)__. To learn more about the SHAP Python library, click __[here](https://github.com/slundberg/shap)__."""
+The next two plots use the Python library called SHAP. SHAP is based on Shapley values which were derrived by American Mathematician Lloyd Shapley in 1951 during his research on Game Theory. Shapley values are great because the allow us to interpret traditionally difficult to understand models like Random Forests, or SVMs, or even Neural Networks. This allows us to build models that are complex enough to be accurate, without the standard drawback of having a model that is a black box. To learn more about Shapley Values, click __[here](https://en.wikipedia.org/wiki/Shapley_value)__. To learn more about the SHAP Python library, click __[here](https://github.com/slundberg/shap)__."""
 , unsafe_allow_html=True)
 
 
