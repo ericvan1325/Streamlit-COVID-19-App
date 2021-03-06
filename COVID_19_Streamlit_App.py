@@ -118,7 +118,7 @@ st.markdown("""This web application uses machine learning to predict if a person
 
 This web app uses the data that the user provides as inputs to an XGBoost Classifier, which then returns a probability of death, and a predicted outcome status, namely Survives, Unsure, and Does Not Survive. These three outcome statuses are based on the probability of death, and are just a short hand interpretation of the probability that the model returns.
 
-**It should be noted that the results of this model should in no way, shape, or form be construed as medical advice. Any predictions made by this model are purely hypothetical, and should not influence any decision regarding your physical health. If you have been in contact with someone who has COVID-19, or have contracted COVID-19 yourself, contact your local health provider for treatment. Please wear a mask, wash your hands, social distance, avoid large gatherings, and get vaccinated when it is your turn.**
+**It should be noted that the results of this model should in no way, shape, or form be construed as medical advice. Any predictions made by this model are purely hypothetical, and should not influence any decision regarding your physical health. If you have been in contact with someone who has COVID-19, or have contracted COVID-19 yourself, please quarantine, and then contact your local health provider for treatment. Please wear a mask, wash your hands, social distance, avoid large gatherings, and get vaccinated when it is your turn.**
  """, unsafe_allow_html=True)
 
 # Provide the User Instructions about how to use the app
